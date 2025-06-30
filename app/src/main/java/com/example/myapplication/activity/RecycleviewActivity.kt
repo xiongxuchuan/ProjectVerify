@@ -1,12 +1,11 @@
-package com.example.myapplication
+package com.example.myapplication.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.myapplication.R
 import com.example.myapplication.adapter.WaterfallAdapter
 import com.example.myapplication.bean.WaterfallItem
 
