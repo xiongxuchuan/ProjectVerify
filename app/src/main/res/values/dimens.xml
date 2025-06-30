@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 普通条目高度 -->
+    <dimen name="normal_item_height">180dp</dimen>
+    <!-- 双倍高度条目 -->
+    <dimen name="double_item_height">360dp</dimen>
+</resources>
