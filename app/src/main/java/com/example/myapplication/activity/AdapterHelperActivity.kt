@@ -13,6 +13,10 @@ import com.example.myapplication.R
 import com.example.myapplication.adapter.UserAdapter
 import com.example.myapplication.bean.User
 
+/**
+ * BaseRecyclerViewAdapterHelper的基本使用
+ *
+ * */
 class AdapterHelperActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: UserAdapter
