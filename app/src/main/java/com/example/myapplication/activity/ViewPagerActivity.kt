@@ -37,5 +37,11 @@ class ViewPagerActivity : AppCompatActivity() {
                 else -> throw IllegalArgumentException("无效位置: $position")
             }
         }.attach()
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+            }
+        })
     }
 }
