@@ -15,7 +15,7 @@ class OuterHistoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_outer_history)
-        var cpv: CircularProgressView = findViewById(R.id.cpv)
-        cpv.setProgress(90.52F)
+        val progressView = findViewById<CircularProgressView>(R.id.cpv)
+        progressView.setProgress(90.52F)
     }
 }

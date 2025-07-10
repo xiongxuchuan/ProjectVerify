@@ -8,7 +8,8 @@
     android:paddingStart="24dp"
     android:paddingEnd="16dp"
     android:background="#ff121212"
-    tools:context=".activity.OuterHistoryActivity">
+    tools:context=".activity.OuterHistoryActivity"
+    android:layout_marginTop="100dp">
 
     <com.example.myapplication.view.CircularProgressView
         android:id="@+id/cpv"
