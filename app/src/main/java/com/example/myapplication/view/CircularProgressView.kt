@@ -21,14 +21,14 @@ class CircularProgressView @JvmOverloads constructor(
     private val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = this@CircularProgressView.strokeWidth
-        strokeCap = Paint.Cap.SQUARE
+        strokeCap = Paint.Cap.ROUND
         color = Color.GREEN
     }
 
     private val backgroundPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = this@CircularProgressView.strokeWidth
-        strokeCap = Paint.Cap.SQUARE
+        strokeCap = Paint.Cap.ROUND
         color = Color.GRAY
     }
 
