@@ -46,7 +46,11 @@ class CircularProgressView @JvmOverloads constructor(
         canvas.drawArc(rectF, -90f, progressAngle , false, progressPaint)
 
         // 设置间隙 gap（单位：度），用于使灰色两端断开
-        val gap = 10f
+        var gap = 10f
+
+        if (progress == 0f) {
+            gap = 0f
+        }
 
         // 只有当进度未达到 100% 时才绘制剩余的灰色弧段
         if (progressAngle < 360f) {
