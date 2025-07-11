@@ -1,13 +1,11 @@
 package com.example.myapplication.activity
 
+import com.example.myapplication.view.CircularProgressView
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.myapplication.R
-import com.example.myapplication.view.CircularProgressView
 
 class OuterHistoryActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -16,6 +14,6 @@ class OuterHistoryActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_outer_history)
         val progressView = findViewById<CircularProgressView>(R.id.cpv)
-        progressView.setProgress(90.52F)
+        progressView.setProgress(98F)
     }
 }
