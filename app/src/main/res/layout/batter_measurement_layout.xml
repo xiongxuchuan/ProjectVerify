@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="210dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="16dp"
+    android:padding="16dp"
+    android:background="@drawable/bg_corner_1c1c1e_16">
+
+    <TextView
+        android:id="@+id/rechargeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="上次充电至 90%"
+        android:textColor="#EFEFEF"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/timeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="09:32"
+        android:textSize="12sp"
+        android:textColor="#FFFFFF"
+        android:alpha="0.6"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@+id/rechargeValue"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/powerHintTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12sp"
+        android:text="电池电量"
+        android:textColor="#FFFFFF"
+        android:alpha="0.5"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/timeTv"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/powerHintTv">
+
+    </HorizontalScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
