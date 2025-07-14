@@ -1,38 +1,23 @@
 package com.example.myapplication.view
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
-import android.graphics.RectF
-import android.os.Build
 import android.util.AttributeSet
 import android.view.View
-data class ChartData(
-    val indexName: String,
-    val time: String,
-    val indexValue: Int,
-    val unit: String,
-    val extra: Int?
-)
-
-data class BarData(
-    val value: Float,     // 0.0 ~ 100.0
-    val index: Int        // 0~95，用于定位时间
-)
+import com.example.myapplication.bean.ChartData
 
 class BarChartView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : View(context, attrs) {
-    private val barDataList = mutableListOf<BarData>()
+    private val chartDataList = mutableListOf<ChartData>()
 
-    fun setData(data: List<BarData>) {
-        barDataList.clear()
-        barDataList.addAll(data)
+    fun setChartData(data: List<ChartData>) {
+        chartDataList.clear()
+        chartDataList.addAll(data)
         invalidate()
     }
 
@@ -64,38 +49,44 @@ class BarChartView @JvmOverloads constructor(
         style = Paint.Style.FILL
     }
 
+    private val bgGreenPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = Color.parseColor("#2033FF33") // 半透明绿色背景
+        style = Paint.Style.FILL
+    }
+
+    private val flashIconPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = Color.YELLOW
+        textSize = 28f
+    }
+
     private val timeLabels = listOf("00:00", "06:00", "12:00", "18:00", "24:00")
     private val percentLabels = listOf("100%", "50%", "0%")
 
-    // layout paddings
     private val topPadding = 16f
     private val bottomPadding = 32f
     private val leftPadding = 20f
     private val rightPadding = 60f
 
-    private val totalBars = 96
-
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
+        val totalBars = chartDataList.size.takeIf { it > 0 } ?: return
         val chartWidth = width - leftPadding - rightPadding
         val chartHeight = height - topPadding - bottomPadding
+        val barWidth = chartWidth / totalBars.toFloat()
 
-        // === Horizontal lines ===
+        // === 绘制横线 ===
         val yPos = listOf(
-            topPadding,                           // 100%
-            topPadding + chartHeight / 2,         // 50%
-            topPadding + chartHeight              // 0%
+            topPadding, topPadding + chartHeight / 2, topPadding + chartHeight
         )
         yPos.forEachIndexed { index, y ->
             canvas.drawLine(leftPadding, y, width - rightPadding, y, solidLinePaint)
             canvas.drawText(percentLabels[index], width - rightPadding + 4f, y + textPaint.textSize / 2 - 4, textPaint)
         }
 
-        // === Vertical lines and time labels ===
+        // === 绘制纵线和时间文字 ===
         val timeCount = timeLabels.size
         val xGap = chartWidth / (timeCount - 1)
-
         for (i in timeLabels.indices) {
             val x = leftPadding + i * xGap
             val paint = if (i == 2) solidLinePaint else dashedLinePaint
@@ -105,22 +96,38 @@ class BarChartView @JvmOverloads constructor(
             canvas.drawText(label, x - textWidth / 2, height - 8f, textPaint)
         }
 
-        // === Bars ===
-        if (barDataList.isNotEmpty()) {
-            val barWidth = chartWidth / totalBars.toFloat()
-
-            for (bar in barDataList) {
-                val index = bar.index
-                val value = bar.value.coerceIn(0f, 100f)
-
-                val barLeft = leftPadding + index * barWidth + barWidth * 0.1f
-                val barRight = barLeft + barWidth * 0.8f
-                val barTop = topPadding + chartHeight * (1 - value / 100f)
-                val barBottom = topPadding + chartHeight
-
-                val paint = if (value < 10f) redPaint else greenPaint
-                canvas.drawRect(barLeft, barTop, barRight, barBottom, paint)
+        // === 画背景绿色区域（extra == 1） ===
+        chartDataList.forEachIndexed { i, data ->
+            if (data.extra == 1) {
+                val left = leftPadding + i * barWidth
+                val right = left + barWidth
+                canvas.drawRect(left, topPadding, right, topPadding + chartHeight, bgGreenPaint)
             }
+        }
+
+        // === 连续5个 extra == 1 显示闪电图标 ===
+        var i = 0
+        while (i <= chartDataList.size - 5) {
+            if ((0 until 5).all { chartDataList[i + it].extra == 1 }) {
+                val centerIndex = i + 2
+                val x = leftPadding + centerIndex * barWidth + barWidth / 2
+                canvas.drawText("⚡", x - 12f, topPadding + 24f, flashIconPaint)
+                i += 5
+            } else {
+                i++
+            }
+        }
+
+        // === 绘制柱状图 ===
+        chartDataList.forEachIndexed { i, data ->
+            val value = data.indexValue.coerceIn(0, 100)
+            val left = leftPadding + i * barWidth + barWidth * 0.1f
+            val right = left + barWidth * 0.8f
+            val top = topPadding + chartHeight * (1 - value / 100f)
+            val bottom = topPadding + chartHeight
+
+            val paint = if (value < 10) redPaint else greenPaint
+            canvas.drawRect(left, top, right, bottom, paint)
         }
     }
 }
