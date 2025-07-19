@@ -13,8 +13,11 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
 <!--        <activity-->
-<!--            android:name=".activity.ChargingChartActivity"-->
+<!--            android:name=".activity.SolarOffsetActivity"-->
 <!--            android:exported="false" />-->
+        <!-- <activity -->
+        <!-- android:name=".activity.ChargingChartActivity" -->
+        <!-- android:exported="false" /> -->
         <!-- <activity -->
         <!-- android:name=".activity.OuterHistoryActivity" -->
         <!-- android:exported="false" /> -->
@@ -28,7 +31,7 @@
         <!-- android:name=".activity.AdapterHelperActivity" -->
         <!-- android:exported="false" /> -->
         <activity
-            android:name=".activity.ChargingChartActivity"
+            android:name=".activity.SolarOffsetActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyApplication">
@@ -38,6 +41,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.ChargingChartActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
